@@ -48,3 +48,7 @@ class CustomeUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+
+    def user_tasks(self):
+        return self.tasks.all()
