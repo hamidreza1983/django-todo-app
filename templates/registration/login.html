@@ -1,7 +1,7 @@
 {% extends "base_auth.html" %}
 {% block title %}Login{% endblock title %}Login 
 {% block content %}
-<form class="login100-form validate-form">
+<form class="login100-form validate-form" method="post">
     {% csrf_token %}
     <span class="login100-form-title">
         Member Login
@@ -33,7 +33,7 @@
         <span class="txt1">
             Forgot
         </span>
-        <a class="txt2" href="#">
+        <a class="txt2" href={% url 'password_reset' %}>
             email / Password?
         </a>
     </div>
