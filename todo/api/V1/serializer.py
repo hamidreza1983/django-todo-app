@@ -11,21 +11,21 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields =[
-            "user", "title" , "complete", 
+            "id","user", "title" , "complete", 
         ]
     
-    def to_representation(self, instance):
-        rep = super().to_representation(instance)
-        rep['user'] = UserSerializer(instance.user).data
-        return rep
+    # def to_representation(self, instance):
+    #     rep = super().to_representation(instance)
+    #     rep['user'] = UserSerializer(instance.user).data
+    #     return rep
 
 
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomeUser
-        fields = [
-            "email" ,"username" 
-        ]
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = CustomeUser
+#         fields = [
+#             "email" ,"username" 
+#         ]
 
