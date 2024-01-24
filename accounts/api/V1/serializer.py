@@ -16,13 +16,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         password1 = attrs.get('password1')
-        password2 = attrs.get('password2')
+        password2 = attrs.get('password')
 
         if password1 != password2:
             raise serializers.ValidationError({
                 'detail':'password dose not confirmed'
             })  
         try:
+
             validate_password(password1)
 
         except exceptions.ValidationError as e:
@@ -33,7 +34,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return super().validate(attrs)
     
     def create(self, validated_data):
-        validated_data.pop('password', None)
+        validated_data.pop('password1', None)
         return CustomeUser.objects.create_user(**validated_data)
 
 
