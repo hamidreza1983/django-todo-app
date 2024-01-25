@@ -1,15 +1,19 @@
 from ...models import CustomeUser
 from rest_framework import serializers
+
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 
 
 class RegisterationSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(max_length=20, write_only=True)
-    
+
+
     class Meta:
         model = CustomeUser
         fields = ['email', 'username', 'password', 'password1']
+
+
 
 
     def validate(self, attrs):
@@ -33,6 +37,8 @@ class RegisterationSerializer(serializers.ModelSerializer):
         
 
         return super().validate(attrs)
+    
+    
     
     def create(self, validated_data):
         validated_data.pop('password1', None)
