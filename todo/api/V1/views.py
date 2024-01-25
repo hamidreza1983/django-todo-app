@@ -8,4 +8,4 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthentic
 class TaskViews(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
-    permission_classes = [IsAuthenticated,IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
