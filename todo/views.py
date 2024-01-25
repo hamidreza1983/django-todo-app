@@ -1,48 +1,39 @@
 from django.shortcuts import get_object_or_404, redirect
 from accounts.models import CustomeUser
-from django.views.generic import ListView, UpdateView, DeleteView, FormView, TemplateView, View
+from django.views.generic import ListView, UpdateView, DeleteView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Task
-from .forms import UpdateTask, CreateTaskForm
+from .forms import *
 
 
 
 class HomeView(LoginRequiredMixin, ListView):
     template_name = 'todo/index.html'
     context_object_name = 'tasks'
+    
     def get_queryset(self):
-        User = get_object_or_404(CustomeUser, email=self.request.user.email)
-        return User.user_tasks()
+        return Task.objects.filter(user=self.request.user)
+
     
     def post(self, request, *args, **kwargs):
         form = CreateTaskForm(request.POST)
         if form.is_valid():
-            new_task = form.save(commit=False)
-            new_task.user = request.user
-            new_task.save()
-            return redirect ('/')
+            task = form.save(commit=False)
+            task.user = self.request.user
+            task.save()
+            return redirect('/')
 
 
-
-
-class DeleteTask(DeleteView):
+class DeleteTask(LoginRequiredMixin, DeleteView):
+    template_name = 'todo/task_confirm_delete.html'
     model = Task
     success_url = '/'
 
 
-
-
-
-class CompleteTask(LoginRequiredMixin, View):
+class CompleteTask(View):
     model = Task
     success_url = '/'
-
-    def get(self, request, *args, **kwargs):
-        object = Task.objects.get(id=kwargs.get("pk"))
-        object.complete = True
-        object.save()
-        return redirect(self.success_url)
-
+    fields = ['title']
 
 
 class UpdateTask(UpdateView):
