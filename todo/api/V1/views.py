@@ -3,9 +3,11 @@ from .serializer import *
 from ...models import *
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
 
 class TaskView(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
     serializer_class = TaskSerializer
 
     def get_queryset(self):
@@ -16,6 +18,8 @@ class TaskView(viewsets.ViewSet):
     def list(self, request, *args, **kwargs):
         tasks_serializer = self.serializer_class(self.get_queryset(), many=True)
         return Response(tasks_serializer.data)
+    
+    
     def retrieve(self, request, *args, **kwargs):
         tasks = get_object_or_404(self.get_queryset(), pk=kwargs.get('pk'))
         tasks_serializer = self.serializer_class(tasks)
