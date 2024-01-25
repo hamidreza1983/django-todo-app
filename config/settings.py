@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'drf_yasg',
     'accounts',
     'todo',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +87,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -120,16 +124,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-MEDIA_URL = 'media/'
 
 STATIC_ROOT = BASE_DIR.joinpath('/static')
-MEDIA_ROOT = BASE_DIR.joinpath('media/')
 
 STATICFILES_DIRS = [
     BASE_DIR/'static',
-    BASE_DIR/'media',
 ]
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -138,3 +138,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomeUser'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+	    'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTStatelessUserAuthentication',
+    ]
+}
