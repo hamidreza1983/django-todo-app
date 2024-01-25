@@ -4,16 +4,14 @@ from ...models import Task
 
 
 
-class TaskSerializer(serializers.ModelSerializer):
-    
-    def create(self, validated_data):
-        alidated_data['user'] = self.context.get('request').user
-        return super().create(validated_data) 
+
 class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
         fields =["id","user", "title" , "complete"]
+
+
     
   
   
