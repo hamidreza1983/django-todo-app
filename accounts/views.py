@@ -2,8 +2,8 @@ from django.shortcuts import redirect
 from .forms import CustomUserCreation
 from django.contrib.auth import authenticate, login, logout
 from .forms import AuthenticationForm
-from django.views.generic import FormView, CreateView, TemplateView
-
+from django.views.generic import FormView, CreateView, TemplateView, UpdateView
+from .models import  Profile
 
 class LoginView(FormView):
      template_name = 'registration/login.html'
@@ -42,3 +42,12 @@ class SignUpView(CreateView):
         
      def form_invalid(self, form):
         return super().form_invalid(form)
+     
+
+
+
+class EditProfileView(UpdateView):
+    template_name = 'registration/edit_profile.html'
+    model = Profile
+    fields = [ 'user','emil' ]
+    success_url = '/'

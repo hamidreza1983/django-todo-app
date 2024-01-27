@@ -41,3 +41,13 @@ class CustomeUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+
+
+
+class Profile(models.Model):
+    user = models.ForeignKey(CustomeUser, on_delete=models.CASCADE)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.user.email
