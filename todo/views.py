@@ -1,10 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect
 from accounts.models import CustomeUser
-from django.views.generic import ListView, UpdateView, DeleteView, FormView, TemplateView, View
+from django.views.generic import ListView, UpdateView, DeleteView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Task
 from .forms import UpdateTask, CreateTaskForm
-
 
 
 class HomeView(LoginRequiredMixin, ListView):
