@@ -2,7 +2,6 @@ from rest_framework import serializers
 from ...models import *
 
 class Todoserializer(serializers.ModelSerializer):
-
     class Meta:
         model = Task
         fields = ["title", "complete"]

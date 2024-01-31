@@ -6,17 +6,14 @@ from django.contrib.auth import authenticate
 
 class RegisterationSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(max_length=20, write_only=True)
-    
     class Meta:
         model = CustomeUser
         fields = ['email', 'username', 'password', 'password1']
 
     def validate(self, attrs):
-
         if attrs.get('password1') != attrs.get('password') :
             raise serializers.ValidationError({
                 'detail' : 'password dose not confirmed'})
-        
         try:
             validate_password(attrs.get('password'))
         except exceptions.ValidationError as e:
@@ -26,7 +23,6 @@ class RegisterationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop('password1', None)
         return CustomeUser.objects.create_user(**validated_data)
-
 
 class CustomeAuthTokenSerializer(serializers.Serializer):
         email = serializers.EmailField(
@@ -46,11 +42,9 @@ class CustomeAuthTokenSerializer(serializers.Serializer):
         def validate(self, attrs):
             email = attrs.get('email')
             password = attrs.get('password')
-
             if email and password:
                 user = authenticate(request=self.context.get('request'),
                                     email=email, password=password)
-                
                 if not user:
                     msg = ('Unable to log in with provided credentials.')
                     raise serializers.ValidationError(msg, code='authorization')

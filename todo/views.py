@@ -5,7 +5,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Task
 from .forms import UpdateTask, CreateTaskForm
 
-
 class HomeView(LoginRequiredMixin, ListView):
     template_name = 'todo/index.html'
     context_object_name = 'tasks'
@@ -21,16 +20,9 @@ class HomeView(LoginRequiredMixin, ListView):
             new_task.save()
             return redirect ('/')
 
-
-
-
 class DeleteTask(DeleteView):
     model = Task
     success_url = '/'
-
-
-
-
 
 class CompleteTask(LoginRequiredMixin, View):
     model = Task
@@ -41,8 +33,6 @@ class CompleteTask(LoginRequiredMixin, View):
         object.complete = True
         object.save()
         return redirect(self.success_url)
-
-
 
 class UpdateTask(UpdateView):
     model = Task
