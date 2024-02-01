@@ -4,6 +4,7 @@ attrs==23.2.0
 Django==4.2.7	
 Django==4.2.7
 djangorestframework==3.14.0
+django-debug-tollbar==4.2.0
 drf-yasg==1.21.7
 inflection==0.5.1
 jsonschema==4.21.1
