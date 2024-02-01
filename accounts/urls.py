@@ -1,6 +1,5 @@
-from django.urls import path,include
+from django.urls import path, include
 from .views import *
-
 
 
 app_name = 'accounts'
@@ -11,4 +10,5 @@ urlpatterns = [
     path('logout/', LogOutView.as_view(), name='logout'),
     path('signup/', SignUpView.as_view(), name='signup'),
     path('api/V1/', include('accounts.api.V1.urls')),
+    path('edit-profile/<int:pk>', EditProfileView.as_view(), name='profile'),
 ]

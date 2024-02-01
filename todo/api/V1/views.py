@@ -1,11 +1,14 @@
-from .serializer import *
-from ...models import *
+from rest_framework.response import Response
+from .serializer import TaskSerializer
+from ...models import Task
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
-from rest_framework.permissions import IsAdminUser, IsAuthenticated, IsAuthenticatedOrReadOnly
+from .permissions import *
 
-
-class TaskViews(viewsets.ModelViewSet):
+class TaskView(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [JustAuthenticatedUser]
+    ordering_fields = ['created_date']
+    
+
