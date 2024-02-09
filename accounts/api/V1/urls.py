@@ -12,6 +12,7 @@ urlpatterns =[
     path('registration/', RegistrationView.as_view(), name = 'registration'),
     path('token/login/', CustomeObtainAuthToken.as_view(), name = 'login'),
     path('token/logout/', DestroyAuthToken.as_view(), name = 'logout'),
+    path('change-password/', ChangePasswordView.as_view(), name = 'change-password'),
 
     #jwt token:)
     path('token/create/', Customejwtview.as_view(), name='token_obtain_pair'),
