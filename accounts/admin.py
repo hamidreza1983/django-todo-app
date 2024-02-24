@@ -23,3 +23,5 @@ class CustomeUserAdmin(UserAdmin):
 
 
 admin.site.register(CustomeUser, CustomeUserAdmin)
+
+
