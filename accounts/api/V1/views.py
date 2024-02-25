@@ -16,19 +16,43 @@ from rest_framework_simplejwt.tokens import AccessToken
 
 
 class RegistrationView(GenericAPIView):
+    """
+    this class is for create user
+    """
 
     serializer_class = RegistrationSerializer
-    
+
     def post(self, request, *args, **kwargs):
+
         serializer = RegistrationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            data = {
-                'email':serializer.validated_data['email']
+            user = get_object_or_404(
+                CustomeUser, email=serializer.validated_data["email"]
+            )
+            token = self.get_tokens_for_user(user)
+            message = EmailMessage(
+                "email/email.html",
+                {"token": token},
+                "admin@hamid.com",
+                to=[serializer.validated_data["email"]],
+            )
+            email = SendEmailWithThreading(message)
+            email.start()
+            return Response({"detail": "email sent for your verification...!"})
 
-            }
-        return Response(data, status=status.HTTP_201_CREATED)
+            # print (serializer.validated_data)
+            # data = {
+            #     'email': serializer.validated_data['email']
+            # }
+            # return Response(data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get_tokens_for_user(self, user):
+
+        refresh = RefreshToken.for_user(user)
+        return str(refresh.access_token)
+        
 
 class CustomeObtainAuthToken(ObtainAuthToken):
     serializer_class = CustomeAuthTokenSerializer
