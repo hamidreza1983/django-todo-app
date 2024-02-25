@@ -38,14 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'todo',  
+    'todo',
+    'rest_framework',
     'drf_yasg',
-    'rest_framework', 
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
-    'debug_toolbar',
-
+    'mail_templated'
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
