@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block 'title' %} Todo List {% endblock 'title' %}
-{% block extra_css %}{% endblock extra_css %}
+{% block title %} Todo List {% endblock %}
+{% block extra_css %}{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -21,7 +21,7 @@
 
       <div class="modal-body p-5 pt-0">
 
-        <form class="pt-3" method="post" >
+        <form class="pt-3" method="POST" >
           {% csrf_token %}
           <div class="input-group mb-3">
             <input type="text" class="form-control rounded-4" name="title" placeholder="Enter task title"
@@ -34,16 +34,10 @@
           <div class="input-group py-1">
             <span type="text" class="form-control" aria-label="Text input with segmented dropdown button">
               {% if task.complete == True %}
-              <strike>{{ task.title }}</strike>
+              <strike>{{task.title}}</strike>
               {% else %}
               <span>{{task}}</span>
               {% endif %}
-              {% if task.complete == True %}
-    
-
-    <span>{{ task.title }}</span>
-{% endif %}
-
             </span>
             <a type="button" class="btn btn-danger" href="{% url 'todo:delete_task' pk=task.id %}"><i class="bi bi-trash"></i></a>
             <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
@@ -51,7 +45,7 @@
               <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href={% url 'todo:complete_task' pk=task.id %}>Done</a></li>
+              <li><a class="dropdown-item" href="{% url 'todo:complete_task' pk=task.id %}">Done</a></li>
               <li><a class="dropdown-item" href={% url 'todo:update_task' pk=task.id %}>Edit</a></li>
             </ul>
           </div>

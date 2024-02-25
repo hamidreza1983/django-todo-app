@@ -1,7 +1,14 @@
 from django.db import models
+
+from django.db import models
 from django.contrib.auth.models import AbstractUser, AbstractBaseUser,BaseUserManager,PermissionsMixin
 
 
+
+# class CustomeUser(AbstractUser):
+#     id_code = models.CharField(max_length=10,null=True, blank=True)
+#     mobile = models.CharField(max_length=20,null=True, blank=True)
+#     image = models.ImageField(upload_to='users', default='user.jpg')
 
 class CustomeBaseUserManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
@@ -31,6 +38,7 @@ class CustomeUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
@@ -43,11 +51,5 @@ class CustomeUser(AbstractBaseUser, PermissionsMixin):
         return self.email
     
 
-
-
-class Profile(models.Model):
-    user = models.ForeignKey(CustomeUser, on_delete=models.CASCADE)
-    email = models.EmailField()
-
-    def __str__(self):
-        return self.user.email
+    def user_tasks(self):
+        return self.tasks.all()
