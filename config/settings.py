@@ -32,12 +32,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'todo',
-    "rest_framework",
+    'rest_framework',
     'django_filters',
     'rest_framework.authtoken',
     'drf_yasg',
     'rest_framework_simplejwt',
-    "debug_toolbar",
+    'debug_toolbar',
+    'mail_templated',
 ]
 
 MIDDLEWARE = [
