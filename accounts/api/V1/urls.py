@@ -1,8 +1,19 @@
-from django.urls import path, include
-from .views import *
+from django.urls import path
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
+)
+from .views import (
+    RegistrationView,
+    CustomeObtainAuthToken,
+    DestroyAuthToken,
+    ChangePasswordView,
+    ProfileView,
+    IsVerifiedView,
+    ResendEmailView,
+    ResetPasswordEmailView,
+    ResetPasswordView,
+    Customejwtview
 )
 
 
@@ -16,12 +27,14 @@ urlpatterns = [
     path("profile/", ProfileView.as_view(), name="profile"),
     path("is-verified/<str:token>", IsVerifiedView.as_view(), name="is-verification"),
     path("resend/", ResendEmailView.as_view(), name="resend"),
-    path("reset-password-email/", ResetPasswordEmailView.as_view(), name="reset-password-email"),  
-    path("reset-password/<str:token>", ResetPasswordView.as_view(), name="reset-password"),
-   
-
-
-
+    path(
+        "reset-password-email/",
+        ResetPasswordEmailView.as_view(),
+        name="reset-password-email",
+    ),
+    path(
+        "reset-password/<str:token>", ResetPasswordView.as_view(), name="reset-password"
+    ),
     # jwt token
     path("token/create/", Customejwtview.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),

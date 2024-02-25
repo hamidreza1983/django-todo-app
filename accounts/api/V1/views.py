@@ -1,5 +1,4 @@
 from rest_framework.generics import GenericAPIView
-from .serializer import *
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -8,10 +7,22 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import get_object_or_404
-from .multi_threading import SendEmailWithThreading
 from mail_templated import EmailMessage
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.tokens import AccessToken
+from .serializer import (
+    RegisterationSerializer,
+    CustomeUser,
+    CustomeAuthTokenSerializer,
+    CustomObtainPairSerializer,
+    PasswordChangeSerializer,
+    ProfileSerializer,
+    Profile,
+    ResendEmailSerializer,
+    ResetPasswordSerializer,
+    ResetPasswordEmailSerializer
+)              
+from .multi_threading import SendEmailWithThreading
 
 
 class RegistrationView(GenericAPIView):
@@ -125,7 +136,7 @@ class IsVerifiedView(GenericAPIView):
             user.is_verified = True
             user.save()
             return Response({"detail": "your account verified successfully"})
-        except:
+        except Exception:
             return Response(
                 {
                     "detail": "your token may be expired or changed structure...",
@@ -158,13 +169,10 @@ class ResendEmailView(GenericAPIView):
 
         refresh = RefreshToken.for_user(user)
         return str(refresh.access_token)
-    
-
 
 
 class ResetPasswordEmailView(GenericAPIView):
     serializer_class = ResetPasswordEmailSerializer
-
 
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
@@ -180,17 +188,16 @@ class ResetPasswordEmailView(GenericAPIView):
         email = SendEmailWithThreading(message)
         email.start()
         return Response({"detail": "email Resend for you..."})
-    
+
     def get_tokens_for_user(self, user):
 
         refresh = RefreshToken.for_user(user)
         return str(refresh.access_token)
 
 
-   
-
 class ResetPasswordView(GenericAPIView):
     serializer_class = ResetPasswordSerializer
+
     def post(self, request, *args, **kwargs):
         try:
             user_data = AccessToken(kwargs.get("token"))
@@ -204,7 +211,7 @@ class ResetPasswordView(GenericAPIView):
                 data={"detail": "password change successfully.", "token": token.key},
                 status=status.HTTP_200_OK,
             )
-        except:
+        except Exception:
             return Response(
                 {
                     "detail": "your token may be expired or changed structure...",

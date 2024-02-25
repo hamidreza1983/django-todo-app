@@ -1,12 +1,12 @@
-from ...models import CustomeUser
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
-from rest_framework.authtoken.serializers import AuthTokenSerializer
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.shortcuts import get_object_or_404
+from ...models import Profile
+from ...models import CustomeUser
 
 
 class RegisterationSerializer(serializers.ModelSerializer):
@@ -141,17 +141,18 @@ class PasswordChangeSerializer(serializers.Serializer):
         try:
             user.auth_token.delete()
             Token.objects.create(user=user)
-        except:
+        except Exception:
+
             Token.objects.create(user=user)
         token = Token.objects.get(user=user)
         return token
 
 
-from ...models import Profile
-
-
 class ProfileSerializer(serializers.ModelSerializer):
-    email = serializers.CharField(max_length=100, source="user.email", read_only=True)
+    email = serializers.CharField(
+        max_length=100,
+        source="user.email",
+        read_only=True)
 
     class Meta:
         model = Profile
@@ -165,7 +166,6 @@ class ResendEmailSerializer(serializers.Serializer):
         user = get_object_or_404(CustomeUser, email=attrs.get("email"))
         attrs["user"] = user
         return attrs
-    
 
 
 class ResetPasswordEmailSerializer(serializers.Serializer):
@@ -175,7 +175,6 @@ class ResetPasswordEmailSerializer(serializers.Serializer):
         user = get_object_or_404(CustomeUser, email=attrs.get("email"))
         attrs["user"] = user
         return attrs
-    
 
 
 class ResetPasswordSerializer(serializers.Serializer):
@@ -192,13 +191,6 @@ class ResetPasswordSerializer(serializers.Serializer):
             )
 
         return super().validate(attrs)
-    
-    
-    
- 
-
-
-
 
     def set_new_password(self, request, attrs: dict):
         pass1 = attrs.get("new_password1")
@@ -214,14 +206,14 @@ class ResetPasswordSerializer(serializers.Serializer):
         user.set_password(pass1)
         user.save()
         return attrs
+
     def create_new_token(self, request, attrs: dict):
         user = request.user
 
         try:
             user.auth_token.delete()
             Token.objects.create(user=user)
-        except:
+        except Exception:
             Token.objects.create(user=user)
         token = Token.objects.get(user=user)
         return token
-
