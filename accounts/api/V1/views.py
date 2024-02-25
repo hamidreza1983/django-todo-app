@@ -151,19 +151,21 @@ class ResendEmailView(GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
+        user = serializer.validated_data["user"]
         if user.is_verified:
-            return Response({"detail" : "your email is already verified"})
+            return Response({"detail": "your email is already verified"})
         token = self.get_tokens_for_user(user)
-        message = EmailMessage('email/email.html', {"token":token}, 'admin@hamid.com', to=[serializer.validated_data['email']])
+        message = EmailMessage(
+            "email/email.html",
+            {"token": token},
+            "admin@hamid.com",
+            to=[serializer.validated_data["email"]],
+        )
         email = SendEmailWithThreading(message)
         email.start()
-        return Response({"detail" : "email Resend for you..."})
+        return Response({"detail": "email Resend for you..."})
+def get_tokens_for_user(self, user):
 
-
-
-
-    def get_tokens_for_user(self, user):
-
-        refresh = RefreshToken.for_user(user)
-        return str(refresh.access_token)
+    refresh = RefreshToken.for_user(user)
+    return str(refresh.access_token)
+    
