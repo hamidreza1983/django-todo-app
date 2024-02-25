@@ -13,7 +13,9 @@ class RegisterationSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         if attrs.get("password1") != attrs.get("password"):
-            raise serializers.ValidationError({"detail": "password dose not confirmed"})
+            raise serializers.ValidationError(
+                {"detail": "password dose not confirmed"}
+            )
         try:
             validate_password(attrs.get("password"))
         except exceptions.ValidationError as e:

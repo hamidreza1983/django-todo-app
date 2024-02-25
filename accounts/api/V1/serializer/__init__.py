@@ -1,2 +1,3 @@
-from .CustomeAuthToken import CustomeAuthTokenSerializer
-from .Registeration import RegisterationSerializer
+from accounts.api.V1.serializer.Registeration import RegisterationSerializer
+from accounts.api.V1.serializer.PasswordChange import PasswordChangeSerializer
+from accounts.api.V1.serializer.CustomeAuthToken import CustomeAuthTokenSerializer

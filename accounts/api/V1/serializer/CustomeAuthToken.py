@@ -19,7 +19,9 @@ class CustomeAuthTokenSerializer(serializers.Serializer):
         password = attrs.get("password")
         if email and password:
             user = authenticate(
-                request=self.context.get("request"), email=email, password=password
+                request=self.context.get("request"),
+                email=email,
+                password=password,
             )
             if not user:
                 msg = "Unable to log in with provided credentials."
