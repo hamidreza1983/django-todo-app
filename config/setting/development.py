@@ -1,6 +1,4 @@
-from config.settings import (
-    BASE_DIR,
-)
+from config.settings import *
 from datetime import timedelta
 
 # Quick-start development settings - unsuitable for production
