@@ -9,7 +9,7 @@ services:
    - .:/core
   ports:
    - "8000:8000"
- smtp4dev:
+  smtp4dev:
     image: rnwood/smtp4dev:v3
     restart: always
     ports:
