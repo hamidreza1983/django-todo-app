@@ -1,5 +1,11 @@
 from django.urls import path, include
-from .views import *
+from .views import (
+    HomeView,
+    DeleteTask,
+    CompleteTask,
+    UpdateTask
+)
+
 
 
 app_name = 'todo'

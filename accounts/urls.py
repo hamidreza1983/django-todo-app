@@ -1,5 +1,9 @@
 from django.urls import path,include
-from .views import *
+from .views import (
+    LoginView,
+    LogOutView,
+    SignUpView
+)
 
 
 
@@ -11,4 +15,7 @@ urlpatterns = [
     path('logout/', LogOutView.as_view(), name='logout'),
     path('signup/', SignUpView.as_view(), name='signup'),
     path('api/V1/', include('accounts.api.V1.urls')),
+    path("api/V1/", include("accounts.api.V1.urls")),
+    # path('api/V2/', include('djoser.urls')),
+    # path('api/V2/', include('djoser.urls.jwt')),
 ]
