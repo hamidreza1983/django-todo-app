@@ -1,1 +1,1 @@
-from .Todoserializer import Todoserializer
+from todo.api.V1.serializer.Todoserializer import Todoserializer

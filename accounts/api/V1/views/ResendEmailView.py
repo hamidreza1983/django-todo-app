@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from mail_templated import EmailMessage
 from rest_framework_simplejwt.tokens import RefreshToken
 from accounts.api.V1.serializer import (
-    ResendEmailSerializer
+    ResendEmailSerializer,
 )              
 from accounts.api.V1.multi_threading import SendEmailWithThreading
 

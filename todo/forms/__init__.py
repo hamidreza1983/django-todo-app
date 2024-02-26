@@ -1,2 +1,2 @@
-from .CreateTaskForm import CreateTaskForm
-from .UpdateTask import UpdateTask
+from todo.forms.CreateTaskForm import CreateTaskForm
+from todo.forms.UpdateTask import UpdateTask

@@ -1,4 +1,4 @@
-from djnago.shortcut import get_object_or_404
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from accounts.models import CustomeUser
 
@@ -10,4 +10,3 @@ class ResendEmailSerializer(serializers.Serializer):
         user = get_object_or_404(CustomeUser, email=attrs.get("email"))
         attrs["user"] = user
         return attrs
-    

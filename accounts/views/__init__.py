@@ -1,3 +1,3 @@
-from .LoginView import LoginView
-from .LogOutView import LogOutView
-from .SignUpView import SignUpView
+from accounts.views.LoginView import LoginView
+from accounts.views.LogOutView import LogOutView
+from accounts.views.SignUpView import SignUpView

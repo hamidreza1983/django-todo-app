@@ -34,14 +34,12 @@ class ResetPasswordEmailView(GenericAPIView):
         refresh = RefreshToken.for_user(user)
         return str(refresh.access_token)
 
-
 class ResetPasswordView(GenericAPIView):
     serializer_class = ResetPasswordSerializer
 
     def post(self, request, *args, **kwargs):
         try:
             user_data = AccessToken(kwargs.get("token"))
-            user_id = user_data["user_id"]
             serializer = self.serializer_class(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.set_new_password(request, serializer.validated_data)
