@@ -1,5 +1,5 @@
-from typing import Dict
-from ...models import CustomeUser
+
+from accounts.models import CustomeUser
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions

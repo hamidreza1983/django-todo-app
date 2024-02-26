@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect
 from accounts.models import CustomeUser
-from django.views.generic import ListView, UpdateView, DeleteView, FormView, TemplateView, View
+from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Task
-from .forms import UpdateTask, CreateTaskForm
+from todo.models import Task
+from todo.forms import CreateTaskForm
 
 
 
@@ -22,33 +22,3 @@ class HomeView(LoginRequiredMixin, ListView):
             new_task.user = request.user
             new_task.save()
             return redirect ('/')
-
-
-
-
-class DeleteTask(DeleteView):
-    model = Task
-    success_url = '/'
-
-
-
-
-
-class CompleteTask(LoginRequiredMixin, View):
-    model = Task
-    success_url = '/'
-
-    def get(self, request, *args, **kwargs):
-        object = Task.objects.get(id=kwargs.get("pk"))
-        object.complete = True
-        object.save()
-        return redirect(self.success_url)
-
-
-
-class UpdateTask(UpdateView):
-    model = Task
-    template_name = 'todo/update_task.html'
-    fields = ['title']
-    success_url = '/'
-    context_object_name = 'task'
