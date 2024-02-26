@@ -1,3 +1,6 @@
 from accounts.api.V1.serializer.Registeration import RegisterationSerializer
 from accounts.api.V1.serializer.PasswordChange import PasswordChangeSerializer
 from accounts.api.V1.serializer.CustomeAuthToken import CustomeAuthTokenSerializer
+from accounts.api.V1.serializer.ResendEmail import ResendEmailSerializer
+from accounts.api.V1.serializer.ResetPassword import ResetPasswordEmailSerializer
+from accounts.api.V1.serializer.ResetPassword import ResetPasswordSerializer
