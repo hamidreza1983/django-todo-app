@@ -12,7 +12,8 @@ class HomeView(LoginRequiredMixin, ListView):
     context_object_name = 'tasks'
     def get_queryset(self):
         User = get_object_or_404(CustomeUser, email=self.request.user.email)
-        return User.user_tasks()
+        task = Task.objects.filter(user=User)
+        return task
     
     def post(self, request, *args, **kwargs):
         form = CreateTaskForm(request.POST)
