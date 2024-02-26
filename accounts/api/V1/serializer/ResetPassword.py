@@ -1,7 +1,7 @@
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 from rest_framework import serializers
-from django.shortcut import get_object_or_404
+from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.models import Token
 from accounts.models import CustomeUser
 

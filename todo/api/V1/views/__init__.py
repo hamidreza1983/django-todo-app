@@ -1,1 +1,1 @@
-from .TodoView import TodoView
+from todo.api.V1.views.TodoView import TodoView

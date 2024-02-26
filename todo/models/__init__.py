@@ -1,1 +1,1 @@
-from .Task import Task
+from todo.models.Task import Task

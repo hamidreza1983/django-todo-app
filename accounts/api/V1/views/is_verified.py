@@ -1,10 +1,8 @@
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
-from django.shortcut import get_object_or_404
+from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.tokens import AccessToken
 from accounts.models import CustomeUser
-from accounts.api.V1.multi_threading import SendEmailWithThreading
-
 
 class IsVerifiedView(GenericAPIView):
     def get(self, request, *args, **kwargs):
