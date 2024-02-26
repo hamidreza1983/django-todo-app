@@ -1,11 +1,8 @@
-
 from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from django.core import exceptions
 
 from rest_framework.authtoken.models import Token
-
-
 
 
 class ResetPasswordSerializer(serializers.Serializer):
@@ -22,8 +19,6 @@ class ResetPasswordSerializer(serializers.Serializer):
             )
 
         return super().validate(attrs)
-    
-    
 
     def set_new_password(self, request, attrs: dict):
         pass1 = attrs.get("new_password1")
@@ -39,6 +34,7 @@ class ResetPasswordSerializer(serializers.Serializer):
         user.set_password(pass1)
         user.save()
         return attrs
+
     def create_new_token(self, request, attrs: dict):
         user = request.user
 

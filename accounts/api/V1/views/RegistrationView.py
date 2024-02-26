@@ -1,5 +1,5 @@
 from rest_framework.generics import GenericAPIView
-from accounts.api.V1.serializer import *
+from accounts.api.V1.serializer import RegisterationSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
@@ -33,7 +33,9 @@ class RegistrationView(GenericAPIView):
             )
             email = SendEmailWithThreading(message)
             email.start()
-            return Response({"detail": "email sent for your verification...!"})
+            return Response(
+                {"detail": "email sent for your verification...!"}
+            )
 
             # print (serializer.validated_data)
             # data = {
@@ -46,4 +48,3 @@ class RegistrationView(GenericAPIView):
 
         refresh = RefreshToken.for_user(user)
         return str(refresh.access_token)
-    

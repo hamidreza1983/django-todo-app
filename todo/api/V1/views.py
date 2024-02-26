@@ -1,8 +1,8 @@
 from rest_framework import viewsets
-from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .serializer import *
+from todo.api.V1.serializer import TaskSerializer
+from todo.models import Task
+
 
 class TaskView(viewsets.ModelViewSet):
     serializer_class = TaskSerializer

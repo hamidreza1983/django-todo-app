@@ -1,13 +1,10 @@
 from rest_framework.generics import GenericAPIView
-from accounts.api.V1.serializer import *
+from accounts.api.V1.serializer import ResendEmailSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from accounts.api.V1.multi_threading import SendEmailWithThreading
 from mail_templated import EmailMessage
 from rest_framework_simplejwt.tokens import RefreshToken
-
-
-
 
 
 class ResendEmailView(GenericAPIView):

@@ -2,8 +2,6 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
 
-
-
 class AuthenticationForm(forms.Form):
     """
     Base class for authenticating users. Extend this to get a form that accepts
@@ -14,5 +12,7 @@ class AuthenticationForm(forms.Form):
     password = forms.CharField(
         label=("Password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "current-password"}),
+        widget=forms.PasswordInput(
+            attrs={"autocomplete": "current-password"}
+        ),
     )
