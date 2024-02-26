@@ -10,6 +10,10 @@ from accounts.api.V1.views import (
     CustomeObtainAuthToken,
     DestroyAuthToken,
     ChangePasswordView,
+    IsVerifiedView,
+    ResetPasswordView,
+    ResendEmailView,
+    ResetPasswordEmailView
     )
 
 app_name = "api-V1-accounts"
@@ -19,6 +23,12 @@ urlpatterns = [
     path("token/login/", CustomeObtainAuthToken.as_view(), name="login"),
     path("token/logout/", DestroyAuthToken.as_view(), name="logout"),
     path("change-password/",ChangePasswordView.as_view(),name="change-password"),
+     path("is-verified/<str:token>", IsVerifiedView.as_view(), name="is-verification"),
+    path("resend/", ResendEmailView.as_view(), name="resend"),
+    path("reset-password-email/",ResetPasswordEmailView.as_view(),
+        name="reset-password-email",),
+    path("reset-password/<str:token>", ResetPasswordView.as_view(), 
+        name="reset-password"),
     # jwt token:)
     path(
         "token/create/",
