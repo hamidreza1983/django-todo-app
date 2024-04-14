@@ -1,3 +1,0 @@
-from accounts.models.CustomeBaseUserManager import CustomeBaseUserManager
-from accounts.models.CustomeUser import CustomeUser
-from accounts.models.Profile import Profile
