@@ -42,16 +42,13 @@ class RegistrationView(GenericAPIView):
                 CustomeUser, email=serializer.validated_data["email"]
             )
             token = self.get_tokens_for_user(user)
-
             send_email_with_celery.delay("email/email.html", token, "fateme@fateme.com", [user.email])
+            
+            
+            
 
-            return Response({"detail": "if emai is on our database we sent for your verification...!"})
+            return Response({"detail": "if email is on our database email we sent for your verification...!"})
 
-            # print (serializer.validated_data)
-            # data = {
-            #     'email': serializer.validated_data['email']
-            # }
-            # return Response(data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get_tokens_for_user(self, user):
@@ -154,7 +151,7 @@ class ResendEmailView(GenericAPIView):
         message = EmailMessage(
             "email/email.html",
             {"token": token},
-            "negim@gmail.com",
+            "fateme@fateme.com",
             to=[serializer.validated_data["email"]],
         )
         email = SendEmailWithThreading(message)
@@ -178,7 +175,7 @@ class ResetPasswordEmailView(GenericAPIView):
         message = EmailMessage(
             "email/resetemail.html",
             {"token": token},
-            "negin@gmail.com",
+            "fateme@fateme.com",
             to=[serializer.validated_data["email"]],
         )
         email = SendEmailWithThreading(message)
